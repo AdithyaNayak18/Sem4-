@@ -1,19 +1,22 @@
-//Testing for 2 cases
-// If divsible by the number ie perfect square
 int mySqrt(int x) {
-    int n;
-    int i=1;
-    while(x%i == 0)
-    {
-        if(x/i == i)
-            return i;
-        i++;
+    if (x == 0 || x == 1) {
+        return x; // Square root of 0 or 1 is the number itself
     }
-  //If not perfect square :
-    i=1;
-        while(i*i <= x)
-              i++;
-    return i-1;
-        
-    
+    int low = 1;
+    int high = x;
+    int result;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (mid == x / mid) {
+            return mid; // Found the exact square root
+        } else if (mid < x / mid) {
+            low = mid + 1; // Square root lies in the right half
+            result = mid; // Store the potential result
+        } else {
+            high = mid - 1; // Square root lies in the left half
+        }
+    }
+    return result; // Return the floor of the square root
 }
+
+
