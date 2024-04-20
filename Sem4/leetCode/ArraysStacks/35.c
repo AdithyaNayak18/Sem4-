@@ -1,3 +1,4 @@
+//Similar to binary search but with 3 inputs
 int searchInsert(int* nums, int numsSize, int target) {
     int low = 0;
     int high = numsSize - 1;
