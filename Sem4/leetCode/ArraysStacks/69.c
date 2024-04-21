@@ -1,3 +1,5 @@
+//Function to find sqr root of a given input:
+
 int mySqrt(int x) {
     if (x == 0 || x == 1) {
         return x; // Square root of 0 or 1 is the number itself
