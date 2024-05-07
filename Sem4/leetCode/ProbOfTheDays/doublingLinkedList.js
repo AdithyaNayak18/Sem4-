@@ -8,38 +8,39 @@
 /**
  * @param {ListNode} head
  * @return {ListNode}
+ given a List say [4, 2, 2] , we are expected to return a linked list with [8, 4, 4] or incase of [7,2,5] = [1,6,5,0]
+
  */
 var doubleIt = function(head) {
-    let temp = head;
-    let count = 0;
-    let array = [];
-    let num = 0;
-    
-    while (temp !== null) {
-        num *= 10;
-        num += temp.val;
-        temp = temp.next;
+    let temp=head;
+    let array=[];
+    var carry=0;
+    while(temp)
+    {
+    array.push(temp.val);
+    temp=temp.next;
     }
-    num *= 2;
-    
-    while (num % 10 !== 0) {
-        array.unshift(num % 10);
-        num = Math.floor(num / 10);
-    }
-    
-    let newHead = null; 
-    let tail = null; 
 
-    // Convert the array back to a linked list
-    for (let value of array) {
-        let current = new ListNode(value); 
-        if (newHead) {
-            tail.next = current; 
-            tail = tail.next; 
-        } else {
-            tail = newHead = current;
+    for(let i=array.length-1;i>=0;i--)
+    {
+        carry+= 2*array[i];
+        array[i]=carry%10;
+        carry=Math.trunc(carry/10);
+    }
+    if(carry) array.unshift(carry);
+
+    let newHead=null;
+    let tail=null;
+    for(let val of array)
+    {
+        temp = new ListNode(val);
+        if(newHead)
+        {
+            tail.next=temp;
+            tail=tail.next;
         }
+        else
+        newHead=tail=temp;
     }
-
-    return newHead; 
+    return newHead;
 };
