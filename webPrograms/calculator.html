@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calendar by Month</title>
+<style>
+    .calendar {
+        margin-top: 20px;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    .calendar th, .calendar td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+    .calendar th {
+        background-color: #f2f2f2;
+    }
+</style>
+</head>
+<body>
+    <h2>Choose Month and Year</h2>
+    <form id="calendarForm">
+        <label for="month">Select Month:</label>
+        <select id="month" name="month">
+            <option value="0">January</option>
+            <option value="1">February</option>
+            <option value="2">March</option>
+            <option value="3">April</option>
+            <option value="4">May</option>
+            <option value="5">June</option>
+            <option value="6">July</option>
+            <option value="7">August</option>
+            <option value="8">September</option>
+            <option value="9">October</option>
+            <option value="10">November</option>
+            <option value="11">December</option>
+        </select>
+        <label for="year">Select Year:</label>
+        <select id="year" name="year">
+            <option value="2024">2024</option>
+            <option value="2025">2025</option>
+            <option value="2026">2026</option>
+            <!-- Add more years as needed -->
+        </select>
+        <button type="button" onclick="displayCalendar()">Show Calendar</button>
+    </form>
+
+    <div id="calendarContainer"></div>
+
+    <script>
+        function displayCalendar() {
+            // Get selected month and year from the form
+            var monthIndex = document.getElementById("month").value;
+            var year = document.getElementById("year").value;
+
+            // Create a new Date object with the selected year and month (month is zero-based in JavaScript Date objects)
+            var date = new Date(year, monthIndex, 1);
+
+            // Create an array of month names for display
+            var monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+
+            // Start building the calendar HTML
+            var calendarHTML = '<h2>' + monthNames[monthIndex] + ' ' + year + '</h2>';
+            calendarHTML += '<table class="calendar">';
+            calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
+            calendarHTML += '<tbody>';
+
+            // Loop to create the days of the month
+            while (date.getMonth() == monthIndex) {
+                calendarHTML += '<tr>';
+                for (var i = 0; i < 7; i++) {
+                    if (date.getDay() == i && date.getMonth() == monthIndex) {
+                        calendarHTML += '<td>' + date.getDate() + '</td>';
+                        date.setDate(date.getDate() + 1);
+                    } else {
+                        calendarHTML += '<td></td>';
+                    }
+                }
+                calendarHTML += '</tr>';
+            }
+
+            calendarHTML += '</tbody></table>';
+
+            // Display the calendar in the calendarContainer div
+            document.getElementById("calendarContainer").innerHTML = calendarHTML;
+        }
+    </script>
+</body>
+</html>
