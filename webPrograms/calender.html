@@ -51,43 +51,70 @@
     <div id="calendarContainer"></div>
 
     <script>
-        function displayCalendar() {
-            // Get selected month and year from the form
-            var monthIndex = document.getElementById("month").value;
-            var year = document.getElementById("year").value;
+       function showCalendar() {
+    var month = document.getElementById('month').value; // Selected month (0-based index)
+    var year = document.getElementById('year').value;   // Selected year
 
-            // Create a new Date object with the selected year and month (month is zero-based in JavaScript Date objects)
-            var date = new Date(year, monthIndex, 1);
+    // Array of month names
+    var monthNames = ["January", "February", "March", "April", "May", "June",
+                      "July", "August", "September", "October", "November", "December"];
+    
+    // Number of days in each month for leap and non-leap years
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    
+    // Leap year check: a year is a leap year if divisible by 4, 
+    // but not divisible by 100 unless also divisible by 400
+    function isLeapYear(year) {
+        return (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0));
+    }
 
-            // Create an array of month names for display
-            var monthNames = ["January", "February", "March", "April", "May", "June",
-                              "July", "August", "September", "October", "November", "December"];
+    // Adjust February days for leap years
+    if (isLeapYear(year)) {
+        daysInMonth[1] = 29; // February has 29 days in a leap year
+    }
 
-            // Start building the calendar HTML
-            var calendarHTML = '<h2>' + monthNames[monthIndex] + ' ' + year + '</h2>';
-            calendarHTML += '<table class="calendar">';
-            calendarHTML += '<thead><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr></thead>';
-            calendarHTML += '<tbody>';
+    // Get the first day of the month (0=Sunday, 1=Monday, ..., 6=Saturday)
+    var firstDay = new Date(year, month, 1).getDay();
+    var numberOfDays = daysInMonth[month];
 
-            // Loop to create the days of the month
-            while (date.getMonth() == monthIndex) {
-                calendarHTML += '<tr>';
-                for (var i = 0; i < 7; i++) {
-                    if (date.getDay() == i && date.getMonth() == monthIndex) {
-                        calendarHTML += '<td>' + date.getDate() + '</td>';
-                        date.setDate(date.getDate() + 1);
-                    } else {
-                        calendarHTML += '<td></td>';
-                    }
-                }
-                calendarHTML += '</tr>';
-            }
+    // Start building the calendar HTML
+    var calendarHtml = "<h2>" + monthNames[month] + " " + year + "</h2>";
+    calendarHtml += "<table border='1'><tr>";
 
-            calendarHTML += '</tbody></table>';
+    // Add day headers (Sun, Mon, Tue, ..., Sat)
+    var dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    for (var i = 0; i < dayNames.length; i++) {
+        calendarHtml += "<th>" + dayNames[i] + "</th>";
+    }
+    calendarHtml += "</tr><tr>";
 
-            // Display the calendar in the calendarContainer div
-            document.getElementById("calendarContainer").innerHTML = calendarHTML;
+    // Fill in the calendar with blank cells before the first day
+    for (var i = 0; i < firstDay; i++) {
+        calendarHtml += "<td></td>";
+    }
+
+    // Add the days of the month
+    for (var day = 1; day <= numberOfDays; day++) {
+        calendarHtml += "<td>" + day + "</td>";
+        // Start a new row for each week
+        if ((day + firstDay) % 7 === 0) {
+            calendarHtml += "</tr><tr>";
         }
+    }
+
+    // Fill in the remaining cells in the last row
+    if ((numberOfDays + firstDay) % 7 !== 0) {
+        for (var j = (numberOfDays + firstDay) % 7; j < 7; j++) {
+            calendarHtml += "<td></td>";
+        }
+    }
+
+    calendarHtml += "</tr></table>";
+
+    // Display the calendar
+    document.getElementById('calendar').innerHTML = calendarHtml;
+}
+
     </script>
 </body>
 </html>
