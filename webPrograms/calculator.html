@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Calculator</title>
+    <style>
+        .calculator {
+            width: 280px;
+            margin: 100px auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .calculator input, .calculator button {
+            height: 50px;
+            margin: 5px;
+            font-size: 18px;
+        }
+        .display {
+            width: 3000px;
+            height: 50px;
+            font-size: 24px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding-right: 10px;
+            box-sizing: border-box;
+        }
+        .calculator input{
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <form name="calc">
+        <input type="text" name="display" class="display" readonly>
+        <br>
+        <button type="button" onclick="calc.display.value += '1'">1</button>
+        <button type="button" onclick="calc.display.value += '2'">2</button>
+        <button type="button" onclick="calc.display.value += '3'">3</button>
+        <button type="button" onclick="calc.display.value += '+'">+</button>
+        <button type="button" onclick="calc.display.value = ' '">C</button>
+        <br>
+        <button type="button" onclick="calc.display.value += '4'">4</button>
+        <button type="button" onclick="calc.display.value += '5'">5</button>
+        <button type="button" onclick="calc.display.value += '6'">6</button>
+        <button type="button" onclick="calc.display.value += '-'">-</button>
+        <br>
+        <button type="button" onclick="calc.display.value += '7'">7</button>
+        <button type="button" onclick="calc.display.value += '8'">8</button>
+        <button type="button" onclick="calc.display.value += '9'">9</button>
+        <button type="button" onclick="calc.display.value += '*'">*</button>
+        <br>
+        <button type="button" onclick="calc.display.value = ''">C</button>
+        <button type="button" onclick="calc.display.value += '0'">0</button>
+        <button type="button" onclick="calculate()">=</button>
+        <button type="button" onclick="calc.display.value += '/'">/</button>
+    </form>
+</div>
+
+<script>
+function calculate() {
+    try {
+        calc.display.value = eval(calc.display.value);
+    } catch (e) {
+        calc.display.value = 'Error';
+    }
+}
+</script>
+
+</body>
+</html>
