@@ -19,7 +19,7 @@ int main()
 
     cout << "Sorted array :\n";
     for(int i=0;i<n;i++){
-        cout << arr[i];
+        cout << arr[i] << " ";
     }
     return 0;
 }
@@ -48,7 +48,7 @@ void Merge(vector<int>& arr, int left, int mid, int right){
      for(int j=0;j<n2;j++){
         R[j]=arr[mid+j+1];
     }
-    int i=0,j=0,k=0;
+    int i=0,j=0,k=left;
 
   while (i < n1 && j < n2) {
         if (L[i] <= R[j]) {
