@@ -1,7 +1,10 @@
 #include<iostream>
 #include<vector>
+#include<chrono>
 
 using namespace std;
+using namespace std::chrono;
+
 int main()
 {
     cout << "Enter the number of digits";
@@ -14,13 +17,18 @@ int main()
     for(int i=0;i <n;i++){
         cin >> arr[i];
     }
+    auto start = high_resolution_clock::now();
 
     mergeSort(arr,0,n-1);
 
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end-start).count(); 
+
     cout << "Sorted array :\n";
     for(int i=0;i<n;i++){
-        cout << arr[i] << " ";
+        cout << arr[i];
     }
+    cout << "\nTime taken by merge sort : " << duration << " ms\n";
     return 0;
 }
 
