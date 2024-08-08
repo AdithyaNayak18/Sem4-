@@ -11,13 +11,16 @@ void addEdge(vector<pair<int,int>> adj[], int a, int b, int wt){
     adj[b].push_back(make_pair(a,wt));
 }
 void primMST(vector<pair<int,int>> adj[], int v){
+    
     vector<int> key(v,INT_MAX);
     vector<int> parent(v,-1);
     vector<bool> inMST(v,false);
     priority_queue<pairr,vector<pairr>,greater<pairr>> pq;
+    
     int start=0;
     key[start]=0;
     pq.push(make_pair(0,start));
+    
     while(!pq.empty()){
         int u=pq.top().second;
         pq.pop();
@@ -26,7 +29,8 @@ void primMST(vector<pair<int,int>> adj[], int v){
         for(auto &x : adj[u]){
             int v=x.first;
             int wt=x.second;
-            if(!inMST[v] && key[v] > wt){
+            
+            if(!inMST[v] && (key[v] > key[u]+wt)){
                 key[v]=wt;
                 parent[v]=u;
                 pq.push(make_pair(key[v],v));
