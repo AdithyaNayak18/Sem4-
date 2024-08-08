@@ -3,7 +3,6 @@
 #include <queue>
 #include <climits>
 using namespace std;
-
 typedef pair<int,int> pairr;
 
 void addEdge(vector<pair<int,int>> adj[], int a, int b, int wt){
